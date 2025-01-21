@@ -27,8 +27,8 @@ def SOAPfingerprints(train, species, r_cut, n_max, l_max, sigma):
         l_max=l_max,
         sigma=sigma,
         periodic= True,
-        average = "outer",
-        sparse = True
+        average = "inner" #,
+        #sparse = True
     )
 
     # Pre-allocate storage for SOAP descriptors
