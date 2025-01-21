@@ -40,8 +40,7 @@ def SOAPfingerprints(train, species, r_cut, n_max, l_max, sigma):
     for i, atoms in enumerate(train.atoms):
         if i % 100 == 0:
             print(f"Processing structure {i + 1}/{len(train)}")
-
-    # Average SOAP descriptor over all atoms
-    soap_descriptors[i, :] = soap.create(atoms, n_jobs=1)
+         # Average SOAP descriptor over all atoms
+            soap_descriptors[i, :] = soap.create(atoms, n_jobs=1)
 
     return soap_descriptors
