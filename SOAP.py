@@ -26,7 +26,7 @@ def SOAPfingerprints(train, species, r_cut, n_max, l_max, sigma, periodic, avera
         n_max=n_max,
         l_max=l_max,
         sigma=sigma,
-        periodic=periodic
+        periodic=periodic,
         average = average
     )
 
