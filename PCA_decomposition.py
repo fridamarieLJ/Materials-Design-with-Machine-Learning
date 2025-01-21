@@ -13,14 +13,19 @@ from scipy.spatial.distance import cdist
 from scipy.optimize import differential_evolution
 import matplotlib.pyplot as plt
 
-def PCA_decomposition(X, number_of_PCs):
-    # Standardize attributes
-    scaler = StandardScaler()
-    X_standardized = scaler.fit_transform(X)
+def PCA_decomposition(X_train, X_test, number_of_PCs):
 
-    pca = PCA(n_components = number_of_PCs).fit(X_standardized)
-    X_train_pca = pca.transform(X_standardized)
-    print("With {} PCA components {var:0.4f}% of the variance is explained".format(number_of_PCs, var = 100*np.sum(pca.explained_variance_ratio_)))
-    
-    return X_train_pca
+    # Standardize the training set
+    scaler = StandardScaler()
+    X_train_scaled = scaler.fit_transform(X_train)
+
+    # Apply PCA to the training set
+    pca = PCA(n_components=number_of_PCs) 
+    X_train_pca = pca.fit_transform(X_train_scaled)
+
+    # Now apply the same transformations to the test set
+    X_test_scaled = scaler.transform(X_test)  # Use the same scaler
+    X_test_pca = pca.transform(X_test_scaled)  # Use the same PCA
+
+    return X_train_pca, X_test_pca
 
