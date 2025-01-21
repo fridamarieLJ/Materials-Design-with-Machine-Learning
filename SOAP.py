@@ -2,7 +2,7 @@ from dscribe.descriptors import SOAP
 from ase import Atoms
 import numpy as np
 
-def SOAPfingerprints(train, species, r_cut, n_max, l_max, sigma, periodic=False, average=False):
+def SOAPfingerprints(train, species, r_cut, n_max, l_max, sigma, periodic, average):
     """
     Generate SOAP descriptors for a dataset of atomic structures.
 
