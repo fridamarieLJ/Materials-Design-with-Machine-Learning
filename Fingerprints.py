@@ -27,24 +27,29 @@ def Coulombmatrices(train, max_number_of_atoms):
     
     return cmats
 
-# Setup
-def get_MBTR(train, species):
-    # Setup
-    mbtr = MBTR(
-        species=species,
-        geometry={"function": "distance"},
-        grid={"min": 0, "max": 1, "n": 100, "sigma": 0.1},
-        weighting={"function": "exp", "scale": 0.5, "threshold": 1e-3},
-        periodic=False,
-        normalization="l2",
+#Sine matrix
+def Sinemats(train, max_number_of_atoms):
+    sm = SineMatrix(
+        n_atoms_max= max_number_of_atoms,
+        permutation="sorted_l2",
+        sparse=False
     )
-
-    mbtrs = np.zeros((len(train),1000**2))
+    smats = np.zeros((len(train),max_number_of_atoms**2))
     for i,atoms in enumerate(train.atoms):
         if i%1000 == 0:
             print(i)
-        mbtrs[i,:] = mbtr.create(atoms)
+        smats[i,:] = sm.create(atoms)
     
-    return mbtrs
+    return smats
 
-    mbtr_water = mbtr.create(water)
+#Ewald sum matrix
+def Ewaldsummatrices(train, max_number_of_atoms):
+    esm = EwaldSumMatrix(n_atoms_max=max_number_of_atoms)
+
+    esms = np.zeros((len(train),max_number_of_atoms**2))
+    for i,atoms in enumerate(train.atoms):
+        if i%1000 == 0:
+            print(i)
+        esms[i,:] = esm.create(atoms)
+    
+    return esms
