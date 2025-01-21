@@ -1,7 +1,8 @@
-import numpy as np
+
 import pandas as pd
 import json
 from ase import Atoms
+import numpy as np
 
 def data_load(data_dir):
     """Data loading function
@@ -25,7 +26,7 @@ def check_data(data):
     print('Train data shape: {}'.format(data.shape))
     print(data.head())
 
-def summarize_1(data):
+def summarize_1(train, test):
     """Get info about species, atomioc numbers, number of atoms in each species. 
     And of inputted species: max number of atoms, min, and max atomic number 
     Input:
@@ -42,7 +43,7 @@ def summarize_1(data):
     species = []
     number_of_atoms = []
     atomic_numbers = []
-    for atom in data.atoms:
+    for atom in pd.concat([train.atoms,test.atoms]):
         species = list(set(species+atom.get_chemical_symbols()))
         atomic_numbers = list(set(atomic_numbers+list(atom.get_atomic_numbers())))
         number_of_atoms.append(len(atom))
