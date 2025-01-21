@@ -13,9 +13,6 @@ from sklearn.preprocessing import StandardScaler
 from scipy.spatial.distance import cdist
 from scipy.optimize import differential_evolution
 import matplotlib.pyplot as plt
-from sklearn.metrics import mean_squared_error as mse
-from sklearn.metrics import root_mean_squared_error as rmse
-
 
 class GP:
     def __init__(self, train, target, sigma):
