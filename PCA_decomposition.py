@@ -17,13 +17,13 @@ import matplotlib.pyplot as plt
 def PCA_decomposition(X_train, X_test, number_of_PCs):
 
     # Apply PCA to the training set
-    pca = PCA(n_components=number_of_PCs) 
+    pca = PCA(n_components=number_of_PCs).fit(X_train)
     X_train_pca = pca.transform(X_train)
     print("With {} PCA components {var:0.4f}% of the variance is explained".format(number_of_PCs, var = 100*np.sum(pca.explained_variance_ratio_)))
     print('X_train_pca: {}'.format(X_train_pca.shape))
 
     # Now apply the same transformations to the test set
-    X_test_pca = pca.transform(X_test)  # Use the same PCA
+    X_test_pca = pca.transform(X_test)
 
     print('X_test_pca: {}'.format(X_test_pca.shape))
 
