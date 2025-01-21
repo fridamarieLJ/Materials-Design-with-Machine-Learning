@@ -27,7 +27,7 @@ def SOAPfingerprints(train, species, r_cut, n_max, l_max, sigma):
         l_max=l_max,
         sigma=sigma,
         periodic= True,
-        average = "inner" #,
+        average = "outer" #,
         #sparse = True
     )
 
