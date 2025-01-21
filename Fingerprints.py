@@ -28,7 +28,7 @@ def Coulombmatrices(train, max_number_of_atoms):
     return cmats
 
 #Sine matrix
-def sinemats(train, max_number_of_atoms):
+def Sinemats(train, max_number_of_atoms):
     sm = SineMatrix(
         n_atoms_max= max_number_of_atoms,
         permutation="sorted_l2",
@@ -43,7 +43,7 @@ def sinemats(train, max_number_of_atoms):
     return smats
 
 #Ewald sum matrix
-def ewaldsummatrix(train, max_number_of_atoms):
+def Ewaldsummatrices(train, max_number_of_atoms):
     esm = EwaldSumMatrix(n_atoms_max=max_number_of_atoms)
 
     esms = np.zeros((len(train),max_number_of_atoms**2))
