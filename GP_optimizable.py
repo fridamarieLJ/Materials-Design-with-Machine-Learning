@@ -13,6 +13,7 @@ from sklearn.preprocessing import StandardScaler
 from scipy.spatial.distance import cdist
 from scipy.optimize import differential_evolution
 import matplotlib.pyplot as plt
+from scipy.linalg import solve_triangular
 
 class GP_opt:
     def __init__(self, train, target):
@@ -22,6 +23,7 @@ class GP_opt:
         self.target_mean = np.mean(target)
         self.target_normalized = target - self.target_mean
         self.N = len(train)
+        self.isCinv = 0
 
     def train_GP(self, ll, k0, sigma):
         self.ll = ll
@@ -40,6 +42,21 @@ class GP_opt:
         prediction = np.dot(kvec, self.Cinvt) + self.target_mean
         return prediction
     
+    def variance(self, fingerprint):
+        #Calculate Cinv the first time
+        
+        if self.isCinv == 0:
+            self.isCinv +=1
+            identity = np.eye(self.L.shape[0])
+            Linv = solve_triangular(self.L, identity, lower=True)
+            self.Cinv = Linv.T @ Linv
+            
+        diff = fingerprint - self.train
+        k_xx = self.k0
+        kvec = self.k0 * np.exp(-np.sum(diff ** 2, axis=1) / (2 * self.ll ** 2))
+        variance = k_xx - kvec.T @ self.Cinv @ kvec
+        return variance
+
     def calc_minusloglikelyhood(self):
         """Calculate the minus log likelyhood. 
         For the log of the determinant of a square matrix, utilising the cholsky decomposition, L"""
